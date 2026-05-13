@@ -12,10 +12,27 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
- title: "Tadeo Sangregorio | BI & Data Analyst",
+export const metadata = {
+  title: "Tadeo Sangregorio | BI & Data Analyst",
   description:
     "Portfolio profesional de BI, dashboards, automatización y analytics.",
+
+  openGraph: {
+    title: "Tadeo Sangregorio | BI & Data Analyst",
+    description:
+      "Portfolio profesional de BI, dashboards, automatización y analytics.",
+    url: "https://portfolio-tadeo.vercel.app",
+    siteName: "Tadeo Sangregorio",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: "es_AR",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

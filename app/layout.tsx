@@ -25,7 +25,7 @@ export const metadata = {
     siteName: "Tadeo Sangregorio",
     images: [
       {
-        url: "/og-image.png",
+        url: "/previsual.png",
         width: 1200,
         height: 630,
       },

@@ -170,7 +170,6 @@ export default function PortfolioPage() {
             : "bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-100/40 via-[#eeeeee] to-[#eeeeee] border-gray-300"
         }`}
       >
-        {/* Efectos de Luces de fondo de acuerdo al modo */}
         <div
           className={`absolute top-0 left-1/4 w-[600px] h-[600px] blur-[150px] rounded-full pointer-events-none transition-colors duration-300 ${
             isDarkMode ? "bg-blue-600/10" : "bg-blue-400/20"
@@ -242,7 +241,6 @@ export default function PortfolioPage() {
               de workflows corporativos y optimización operativa data-driven.
             </motion.p>
 
-            {/* BOTONES */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -301,7 +299,6 @@ export default function PortfolioPage() {
             </motion.div>
           </div>
 
-          {/* SECCIÓN INTERACTIVA DE CONTADORES / IMPACTO */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -541,7 +538,9 @@ export default function PortfolioPage() {
         </div>
       </section>
 
-      {/* SECCIÓN EXPERIENCIA INLINE PROFESIONAL */}
+      {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+          SECCIÓN EXPERIENCIA — TIMELINE CORREGIDA PARA MOBILE
+          ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
       <section
         className={`max-w-7xl mx-auto px-6 py-24 border-t transition-colors duration-300 ${
           isDarkMode ? "border-gray-900" : "border-gray-300"
@@ -564,73 +563,99 @@ export default function PortfolioPage() {
           </h2>
         </div>
 
-        <div
-          className={`space-y-12 relative before:absolute before:inset-0 before:left-4 md:before:left-1/2 before:w-px before:pointer-events-none transition-colors duration-300 ${
-            isDarkMode ? "before:bg-gray-800/80" : "before:bg-gray-400"
-          }`}
-        >
-          {experienciaHistorial.map((exp, idx) => (
-            <div
-              key={idx}
-              className={`relative flex flex-col md:flex-row items-start ${
-                idx % 2 === 0 ? "md:flex-row-reverse" : ""
-              }`}
-            >
-              {/* Nodo */}
-              <div
-                className={`absolute left-4 md:left-1/2 transform -translate-x-1/2 w-3 h-3 rounded-full border-4 z-20 top-1.5 transition-colors duration-300 ${
-                  isDarkMode
-                    ? "bg-blue-500 border-gray-950"
-                    : "bg-blue-600 border-[#eeeeee]"
-                }`}
-              />
+        {/* 
+          MOBILE:  línea fija a la izquierda (left-4), cards con pl para dejar espacio
+          DESKTOP: línea centrada (md:left-1/2), cards alternadas en cada lado
+        */}
+        <div className="relative">
+          {/* Línea vertical */}
+          <div
+            className={`absolute left-4 md:left-1/2 top-0 bottom-0 w-px pointer-events-none transition-colors duration-300 ${
+              isDarkMode ? "bg-gray-800/80" : "bg-gray-400"
+            }`}
+          />
 
-              {/* Card */}
-              <div
-                className={`w-full md:w-[46%] ml-10 md:ml-0 border rounded-2xl p-6 backdrop-blur-sm transition-all duration-300 ${
-                  isDarkMode
-                    ? "bg-gray-900/10 border-gray-800/60"
-                    : "bg-white border-gray-300 shadow-sm"
-                }`}
-              >
-                <span
-                  className={`text-xs font-bold block mb-1 transition-colors duration-300 ${
-                    isDarkMode ? "text-blue-400" : "text-blue-600"
-                  }`}
-                >
-                  {exp.periodo}
-                </span>
-                <h3
-                  className={`text-xl font-bold mb-0.5 transition-colors duration-300 ${
-                    isDarkMode ? "text-white" : "text-gray-900"
-                  }`}
-                >
-                  {exp.puesto}
-                </h3>
-                <span
-                  className={`text-sm font-medium block mb-4 transition-colors duration-300 ${
-                    isDarkMode ? "text-gray-400" : "text-gray-600"
-                  }`}
-                >
-                  {exp.empresa}
-                </span>
+          <div className="space-y-8 md:space-y-12">
+            {experienciaHistorial.map((exp, idx) => (
+              <div key={idx} className="relative flex items-start">
+                {/* Nodo — siempre alineado a la línea */}
+                <div
+                  className={`
+                    absolute left-4 md:left-1/2
+                    -translate-x-1/2
+                    w-3 h-3 rounded-full border-4 z-20 mt-1.5
+                    transition-colors duration-300
+                    ${
+                      isDarkMode
+                        ? "bg-blue-500 border-[#030712]"
+                        : "bg-blue-600 border-[#eeeeee]"
+                    }
+                  `}
+                />
 
-                <ul className="space-y-2 text-sm list-disc list-inside">
-                  {exp.logros.map((logro, i) => (
-                    <li key={i} className="leading-relaxed">
-                      <span
-                        className={`transition-colors duration-300 ${
-                          isDarkMode ? "text-gray-300" : "text-gray-700"
-                        }`}
-                      >
-                        {logro}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
+                {/*
+                  MOBILE: card ocupa todo el ancho, con padding izquierdo
+                    para no solaparse con el nodo/línea.
+                  DESKTOP: card en el lado correcto (izquierda o derecha
+                    del centro), con margen automático.
+                */}
+                <div
+                  className={`
+                    w-full pl-10
+                    md:pl-0 md:w-[46%]
+                    ${
+                      idx % 2 === 0
+                        ? "md:ml-auto md:pr-0 md:pl-8" /* derecha */
+                        : "md:mr-auto md:pl-0 md:pr-8" /* izquierda */
+                    }
+                    border rounded-2xl p-6 backdrop-blur-sm
+                    transition-all duration-300
+                    ${
+                      isDarkMode
+                        ? "bg-gray-900/10 border-gray-800/60"
+                        : "bg-white border-gray-300 shadow-sm"
+                    }
+                  `}
+                >
+                  <span
+                    className={`text-xs font-bold block mb-1 transition-colors duration-300 ${
+                      isDarkMode ? "text-blue-400" : "text-blue-600"
+                    }`}
+                  >
+                    {exp.periodo}
+                  </span>
+                  <h3
+                    className={`text-xl font-bold mb-0.5 transition-colors duration-300 ${
+                      isDarkMode ? "text-white" : "text-gray-900"
+                    }`}
+                  >
+                    {exp.puesto}
+                  </h3>
+                  <span
+                    className={`text-sm font-medium block mb-4 transition-colors duration-300 ${
+                      isDarkMode ? "text-gray-400" : "text-gray-600"
+                    }`}
+                  >
+                    {exp.empresa}
+                  </span>
+
+                  <ul className="space-y-2 text-sm list-disc list-inside">
+                    {exp.logros.map((logro, i) => (
+                      <li key={i} className="leading-relaxed">
+                        <span
+                          className={`transition-colors duration-300 ${
+                            isDarkMode ? "text-gray-300" : "text-gray-700"
+                          }`}
+                        >
+                          {logro}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
@@ -687,10 +712,6 @@ export default function PortfolioPage() {
           </div>
         </div>
       </footer>
-
-      {/* ————————————————————————————————————————————————————————— */}
-      {/* MODALES RETENIENDO TU LÓGICA Y ADECUÁNDOSE AL MODO ACTIVO */}
-      {/* ————————————————————————————————————————————————————————— */}
 
       {/* MODAL MAIL */}
       {openMailProject && (
@@ -953,7 +974,7 @@ export default function PortfolioPage() {
         </div>
       )}
 
-      {/* LIGHTBOX DE IMÁGENES */}
+      {/* LIGHTBOX */}
       {selectedImage && (
         <div className="fixed inset-0 bg-black/95 flex items-center justify-center z-[9999] p-4">
           <button
@@ -1043,3 +1064,4 @@ export default function PortfolioPage() {
     </div>
   );
 }
+
